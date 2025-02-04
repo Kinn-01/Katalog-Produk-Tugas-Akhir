@@ -1,0 +1,7 @@
+﻿2025-02-04 10:57:35, Error                        CBootMgrLog::CreateInstance() failed. 0x00000002[gle=0x00000002]
+2025-02-04 10:57:35, Error                        Failed to check OS architecture. 0x00000490[gle=0x00000002]
+2025-02-04 10:57:35, Error                        [recenv.exe] winreArePathsEqualFailed to get attributes for C:\Windows: 0x2
+2025-02-04 10:57:35, Error                        WinReGetConfigEx failed. Error: 0x00000003[gle=0x00000003]
+2025-02-04 10:57:35, Error                        CRecoveryToolAction->Init() failed. Error: 0x00000003[gle=0x00000003]
+2025-02-04 10:57:35, Error                        WinReGetConfigEx failed. Error: 0x00000003[gle=0x00000003]
+2025-02-04 10:57:35, Error                   
