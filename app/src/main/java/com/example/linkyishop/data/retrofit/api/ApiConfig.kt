@@ -24,7 +24,7 @@ class ApiConfig {
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://mlapi.linkyi.shop/")
+                .baseUrl("https://ml-api.linkyi.shop/")
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

@@ -1,6 +1,8 @@
 package com.example.linkyishop.ui.profile
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -8,6 +10,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -20,6 +23,7 @@ import com.example.linkyishop.ui.listKategori.ListKategoriActivity
 import com.example.linkyishop.ui.tema.TemaActivity
 import com.example.linkyishop.ui.updatePassword.UpdatePasswordActivity
 import com.example.linkyishop.ui.welcome.WelcomeActivity
+
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
 
@@ -54,10 +58,10 @@ class ProfileFragment : Fragment() {
             activity?.finish()
         }
 
-        binding.theme.setOnClickListener {
-            startActivity(Intent(activity, TemaActivity::class.java))
-            activity?.finish()
-        }
+//        binding.theme.setOnClickListener {
+//            startActivity(Intent(activity, TemaActivity::class.java))
+//            activity?.finish()
+//        }
 
         binding.updatePassword.setOnClickListener {
             startActivity(Intent(activity, UpdatePasswordActivity::class.java))
@@ -72,14 +76,25 @@ class ProfileFragment : Fragment() {
                 binding.tvTokoName.text = it.name.toString()
                 binding.tvDesc.text = it.description.toString()
                 val baseLink = getString(R.string.generate_base_link)
-                binding.tvLinks.text = "$baseLink${it.link}"
+                val fullLink = "$baseLink${it.link}"
+                binding.tvLinks.text = fullLink
+
                 Glide.with(this)
                     .load(it.logo)
                     .into(binding.ivThumbnail)
 
-                binding.tvLinks.setOnClickListener {view ->
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("$baseLink${it.link}"))
+                // Set click listener untuk membuka link
+                binding.tvLinks.setOnClickListener {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(fullLink))
                     startActivity(intent)
+                }
+
+                // Set click listener untuk menyalin link
+                binding.btnCopyLink.setOnClickListener {
+                    val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                    val clip = ClipData.newPlainText("Copied Link", fullLink)
+                    clipboard.setPrimaryClip(clip)
+                    Toast.makeText(requireContext(), "Link disalin ke clipboard", Toast.LENGTH_SHORT).show()
                 }
             }
         }

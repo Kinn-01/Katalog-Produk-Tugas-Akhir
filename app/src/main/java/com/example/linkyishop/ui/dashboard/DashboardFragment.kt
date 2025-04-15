@@ -19,8 +19,6 @@ class DashboardFragment : Fragment() {
         ViewModelFactory.getInstance(requireContext())
     }
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -37,9 +35,9 @@ class DashboardFragment : Fragment() {
         viewModel.dashboard.observe(viewLifecycleOwner, Observer { data ->
             data?.let {
                 binding.totalBarang.text = it.product.toString()
-                binding.jumlahKlik.text = it.totalClick.toString()
+//                binding.jumlahKlik.text = it.totalClick.toString()
                 binding.totalKategori.text = it.category.toString()
-                binding.jumlahPengunjung.text = it.visitor.toString()
+//                binding.jumlahPengunjung.text = it.visitor.toString()
             }
         })
 

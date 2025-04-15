@@ -1,10 +1,9 @@
 <resources>
-    <string name="app_name">Linkyi Shop</string>
+    <string name="app_name">Katalog Produk</string>
     <string name="title_product">Product</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_linkyi">Linkyi</string>
+    <string name="title_linkyi">Links</string>
     <string name="title_profile">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_signup_page">Daftar</string>
     <string name="subjudul">Buat Akun Terlebih dahulu</string>
@@ -31,8 +30,8 @@
     <string name="title_menu_4">menu 4</string>
     <string name="desc_menu_4">desc4</string>
     <string name="learn_now">learn now</string>
-    <string name="title_welcome_page">Selamat Datang di Linkyi Shop</string>
-    <string name="message_welcome_page">Linkyi Shop Teman UMKM</string>
+    <string name="title_welcome_page">Selamat Datang !!!</string>
+    <string name="message_welcome_page">Mulai Manajemen Katalog Digital Anda</string>
     <string name="otp_verification">Masukan Kode OTP</string>
     <string name="verifikasi">Verifikasi</string>
     <string name="resend_otp">Kirim Ulang</string>
@@ -68,9 +67,9 @@
     <string name="add_linkyi">Tambah Item</string>
     <string name="content_tab_home">Link</string>
     <string name="content_tab_head">Headline</string>
-    <string name="generate_base_link">https://linkyi.shop</string>
+    <string name="generate_base_link">https://</string>
     <string name="analisis_toko">Analisis Toko</string>
-    <string name="total_barang">Total Barang</string>
+    <string name="total_barang">Total Produk</string>
     <string name="_0">0</string>
     <string name="total_klik">Total Klik</string>
     <string name="total_kategori">Total Kategori</string>
@@ -101,6 +100,7 @@
     <string name="edit_toko">Edit Toko</string>
     <string name="tema">Tema</string>
     <string name="links2">Links</string>
+    <string name="copy_link">Copy link</string>
     <string name="pilihan_tema">Pilihan Tema</string>
     <string name="update_store">Update Store</string>
     <string name="list_kategori">List Kategori</string>

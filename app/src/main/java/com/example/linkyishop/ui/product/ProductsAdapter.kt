@@ -1,5 +1,6 @@
 package com.example.linkyishop.ui.product
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -44,6 +45,7 @@ class ProductsAdapter(private val context: Context, private val products: Produc
         return products.data?.size ?: 0
     }
     inner class MyViewHolder(private val binding: ProductsCardBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(product: DataItem, links: List<LinksItem?>?) {
             binding.nameTextView.text = product.title
             binding.descTextView.text = "Rp. ${product.price.toString()}"

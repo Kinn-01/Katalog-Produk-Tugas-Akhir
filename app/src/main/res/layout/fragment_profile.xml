@@ -43,14 +43,33 @@
                     android:text="@string/deskripsi"
                     android:textAppearance="?textAppearanceTitleSmall" />
 
-                <TextView
-                    android:id="@+id/tvLinks"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/generate_base_link"
-                    android:textColor="@color/md_theme_primary"
-                    android:textAppearance="?textAppearanceTitleMedium" />
+                    android:layout_marginTop="4dp">
+
+                    <!-- Tombol Salin -->
+
+                    <TextView
+                        android:id="@+id/tvLinks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="63dp"
+                        android:text="@string/generate_base_link"
+                        android:textAppearance="?textAppearanceTitleMedium"
+                        android:textColor="@color/md_theme_primary" />
+
+                    <ImageButton
+                        android:id="@+id/btnCopyLink"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_toEndOf="@+id/tvLinks"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/copy_link"
+                        android:src="@drawable/ic_copy" />
+                </RelativeLayout>
             </LinearLayout>
                 <!-- Profile Card -->
             <com.google.android.material.card.MaterialCardView
@@ -102,41 +121,41 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                                 <!-- Terms & Privacy Policy -->
-                        <RelativeLayout
-                            android:id="@+id/theme"
-                            android:layout_width="match_parent"
-                            android:layout_height="56dp"
-                            android:background="?android:attr/selectableItemBackground"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:padding="16dp">
+<!--                        <RelativeLayout-->
+<!--                            android:id="@+id/theme"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="56dp"-->
+<!--                            android:background="?android:attr/selectableItemBackground"-->
+<!--                            android:clickable="true"-->
+<!--                            android:focusable="true"-->
+<!--                            android:gravity="center_vertical"-->
+<!--                            android:orientation="horizontal"-->
+<!--                            android:padding="16dp">-->
 
-                            <ImageView
-                                android:id="@+id/ivTheme"
-                                android:layout_width="28dp"
-                                android:layout_height="28dp" />
+<!--                            <ImageView-->
+<!--                                android:id="@+id/ivTheme"-->
+<!--                                android:layout_width="28dp"-->
+<!--                                android:layout_height="28dp" />-->
 
-                            <TextView
-                                android:id="@+id/tvTerms"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_toEndOf="@id/ivTheme"
-                                android:text="@string/tema"
-                                android:textAppearance="?textAppearanceTitleSmall" />
+<!--                            <TextView-->
+<!--                                android:id="@+id/tvTerms"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="16dp"-->
+<!--                                android:layout_toEndOf="@id/ivTheme"-->
+<!--                                android:text="@string/tema"-->
+<!--                                android:textAppearance="?textAppearanceTitleSmall" />-->
 
-                            <ImageView
-                                android:id="@+id/icRightTheme"
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:layout_alignBottom="@+id/tvTerms"
-                                android:layout_alignParentEnd="true"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:src="@drawable/baseline_right_arrow_24" />
-                        </RelativeLayout>
+<!--                            <ImageView-->
+<!--                                android:id="@+id/icRightTheme"-->
+<!--                                android:layout_width="28dp"-->
+<!--                                android:layout_height="28dp"-->
+<!--                                android:layout_alignBottom="@+id/tvTerms"-->
+<!--                                android:layout_alignParentEnd="true"-->
+<!--                                android:clickable="true"-->
+<!--                                android:focusable="true"-->
+<!--                                android:src="@drawable/baseline_right_arrow_24" />-->
+<!--                        </RelativeLayout>-->
 
                         <com.google.android.material.divider.MaterialDivider
                             android:layout_width="match_parent"

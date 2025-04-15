@@ -32,7 +32,7 @@
         app:layout_constraintHeight_percent="0.25"
         app:layout_constraintTop_toBottomOf="@id/textAnalisis"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/card_jumlah_klik">
+        app:layout_constraintEnd_toStartOf="@id/card_total_kategori">
 
         <LinearLayout
             android:layout_width="150dp"
@@ -61,7 +61,7 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/card_jumlah_klik"
+        android:id="@+id/card_total_kategori"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_margin="16dp"
@@ -72,45 +72,6 @@
         app:layout_constraintTop_toBottomOf="@id/textAnalisis"
         app:layout_constraintStart_toEndOf="@id/card_total_barang"
         app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/text_jumlah_klik"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/total_klik"
-                android:textSize="14sp"
-                android:textColor="@color/md_theme_scrim" />
-
-            <TextView
-                android:id="@+id/jumlah_klik"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_0"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/md_theme_scrim" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_total_kategori"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="8dp"
-        app:cardBackgroundColor="@color/md_theme_inversePrimary"
-        app:layout_constraintWidth_percent="0.45"
-        app:layout_constraintHeight_percent="0.25"
-        app:layout_constraintTop_toBottomOf="@id/card_total_barang"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/card_jumlah_pengunjung">
 
         <LinearLayout
             android:layout_width="150dp"
@@ -138,44 +99,83 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_jumlah_pengunjung"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="8dp"
-        app:cardBackgroundColor="@color/md_theme_inversePrimary"
-        app:layout_constraintWidth_percent="0.45"
-        app:layout_constraintHeight_percent="0.25"
-        app:layout_constraintTop_toBottomOf="@id/card_jumlah_klik"
-        app:layout_constraintStart_toEndOf="@id/card_total_kategori"
-        app:layout_constraintEnd_toEndOf="parent">
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/card_total_kategori"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:layout_margin="16dp"-->
+<!--        app:cardCornerRadius="8dp"-->
+<!--        app:cardBackgroundColor="@color/md_theme_inversePrimary"-->
+<!--        app:layout_constraintWidth_percent="0.45"-->
+<!--        app:layout_constraintHeight_percent="0.25"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/card_total_barang"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/card_jumlah_pengunjung">-->
 
-        <LinearLayout
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:gravity="center">
+<!--        <LinearLayout-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="16dp"-->
+<!--            android:gravity="center">-->
 
-            <TextView
-                android:id="@+id/text_jumlah_pengunjung"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/total_pengunjung"
-                android:textSize="14sp"
-                android:textColor="@color/md_theme_scrim" />
+<!--            <TextView-->
+<!--                android:id="@+id/text_total_kategori"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/total_kategori"-->
+<!--                android:textSize="14sp"-->
+<!--                android:textColor="@color/md_theme_scrim" />-->
 
-            <TextView
-                android:id="@+id/jumlah_pengunjung"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_0"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textColor="@color/md_theme_scrim" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+<!--            <TextView-->
+<!--                android:id="@+id/total_kategori"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/_0"-->
+<!--                android:textSize="24sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/md_theme_scrim" />-->
+<!--        </LinearLayout>-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/card_jumlah_pengunjung"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="150dp"-->
+<!--        android:layout_margin="16dp"-->
+<!--        app:cardCornerRadius="8dp"-->
+<!--        app:cardBackgroundColor="@color/md_theme_inversePrimary"-->
+<!--        app:layout_constraintWidth_percent="0.45"-->
+<!--        app:layout_constraintHeight_percent="0.25"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/card_jumlah_klik"-->
+<!--        app:layout_constraintStart_toEndOf="@id/card_total_kategori"-->
+<!--        app:layout_constraintEnd_toEndOf="parent">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical"-->
+<!--            android:padding="16dp"-->
+<!--            android:gravity="center">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/text_jumlah_pengunjung"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/total_pengunjung"-->
+<!--                android:textSize="14sp"-->
+<!--                android:textColor="@color/md_theme_scrim" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/jumlah_pengunjung"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/_0"-->
+<!--                android:textSize="24sp"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/md_theme_scrim" />-->
+<!--        </LinearLayout>-->
+<!--    </androidx.cardview.widget.CardView>-->
 
     <ProgressBar
         android:id="@+id/progressBar"

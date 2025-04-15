@@ -31,20 +31,47 @@ class ProductViewModel(private val repository: UserRepository) : ViewModel() {
     val isLoading: LiveData<Boolean> get() = _isLoading
 
     suspend fun getProducts() {
+        _isLoading.value = true
         try {
             val token = repository.getUserToken()
-            val response = ApiConfig.getApiService().getProducts("Bearer $token")
-            if (response.isSuccessful) {
-                val products = response.body()?.data?.products
-                if (products != null) {
-                    _listProduct.postValue(products!!)
-                    Log.e("Products", "Isi: $products")
+            var currentPage = 1
+            val allProducts = mutableListOf<DataItem>()
+            var hasMorePages = true
+
+            while (hasMorePages) {
+                val response = ApiConfig.getApiService().getProducts("Bearer $token", currentPage)
+                if (response.isSuccessful) {
+                    val products = response.body()?.data?.products
+                    if (products != null) {
+                        allProducts.addAll((products.data ?: emptyList()) as Collection<DataItem>)
+                        currentPage++
+                        hasMorePages = products.currentPage ?: 0 < products.lastPage ?: 0
+                    } else {
+                        Log.e("Products", "Data produk null")
+                        break
+                    }
                 } else {
-                    Log.e("Products", "Data produk null")
+                    Log.e("Products", "Error: ${response.message()}")
+                    break
                 }
-            } else {
-                Log.e("Products", "Error: ${response.message()}")
             }
+
+            _listProduct.postValue(Products(
+                perPage = allProducts.size,
+                data = allProducts,
+                lastPage = 1,
+                nextPageUrl = null,
+                prevPageUrl = null,
+                firstPageUrl = null,
+                path = null,
+                total = allProducts.size,
+                lastPageUrl = null,
+                from = 1,
+                links = null,
+                to = allProducts.size,
+                currentPage = 1
+            ))
+
         } catch (e: Exception) {
             Log.e("Products", "Exception: ${e.message.toString()}")
         } finally {

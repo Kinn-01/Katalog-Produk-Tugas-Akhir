@@ -52,7 +52,7 @@ class AktivasiTokoActivity : AppCompatActivity() {
             if (username.isNotEmpty()) {
                 viewModel.checkUsername(username)
             } else {
-                Toast.makeText(this, "Harap masukkan username", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Harap masukkan username Anda", Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -149,10 +149,10 @@ class UpdateProductActivity : AppCompatActivity() {
     private fun observeViewModel() {
         viewModel.updateProductResult.observe(this) { result ->
             result.onSuccess { response ->
-                Toast.makeText(this, "Product updated successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Produk Berhasil Diperbarui", Toast.LENGTH_SHORT).show()
                 navigateToDetailProduct()
             }.onFailure { exception ->
-                Toast.makeText(this, "Failed to update product: ${exception.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Gagal Memperbarui Produk: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }
