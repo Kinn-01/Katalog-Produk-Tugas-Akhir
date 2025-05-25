@@ -38,10 +38,33 @@ class LinkFragment : Fragment() {
     }
 
     private fun simpanLink() {
+        val link = binding.edEditLink.text.toString().trim()
+        val name = binding.edEditName.text.toString().trim()
+
+        // Validasi input kosong
+        if (link.isEmpty() || name.isEmpty()) {
+            Toast.makeText(requireContext(), "Nama dan link harus diisi.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Validasi format URL harus diawali dengan https://
+        if (!link.startsWith("https://")) {
+            Toast.makeText(requireContext(), "Link harus diawali dengan \"https://\"", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Optional: validasi apakah benar-benar URL (Regex sederhana)
+        val urlPattern = Regex("^https://[\\w.-]+(?:\\.[\\w\\.-]+)+[/#?]?.*\$")
+        if (!urlPattern.matches(link)) {
+            Toast.makeText(requireContext(), "Format link tidak valid.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Jika lolos semua validasi, lanjutkan simpan
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.addLink(binding.edEditLink.text.toString(), binding.edEditName.text.toString(), isActive)
+            viewModel.addLink(link, name, isActive)
             viewModel.linkyiResponse.observe(viewLifecycleOwner) {
-                if (it?.success == true){
+                if (it?.success == true) {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                     binding.edEditLink.setText("")
                     binding.edEditName.setText("")
@@ -50,6 +73,7 @@ class LinkFragment : Fragment() {
             }
         }
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

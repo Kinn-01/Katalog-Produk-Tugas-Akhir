@@ -19,7 +19,6 @@ import com.example.linkyishop.ui.product.AddProductViewModel
 import com.example.linkyishop.ui.product.ProductViewModel
 import com.example.linkyishop.ui.product.UpdateProductViewModel
 import com.example.linkyishop.ui.register.RegisterViewModel
-import com.example.linkyishop.ui.tema.TemaViewModel
 import com.example.linkyishop.ui.updatePassword.UpdatePasswordViewModel
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
@@ -67,9 +66,6 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             }
             modelClass.isAssignableFrom(UpdateStoreViewModel::class.java) -> {
                 UpdateStoreViewModel(repository) as T
-            }
-            modelClass.isAssignableFrom(TemaViewModel::class.java) -> {
-                TemaViewModel(repository) as T
             }
             modelClass.isAssignableFrom(ListKategoriViewModel::class.java) -> {
                 ListKategoriViewModel(repository) as T

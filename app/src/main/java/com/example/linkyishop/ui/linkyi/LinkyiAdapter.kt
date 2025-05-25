@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -71,6 +72,7 @@ class LinkyiAdapter(
                     }
                     .setPositiveButton(context.getString(R.string.accept)) { dialog, which ->
                         viewModel.deleteLinkyi(link?.id!!)
+                        Toast.makeText(context, "Tautan berhasil dihapus", Toast.LENGTH_SHORT).show()
                         refreshListener.onRefresh()
                     }
                     .show()

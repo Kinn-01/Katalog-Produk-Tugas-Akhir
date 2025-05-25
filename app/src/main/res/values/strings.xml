@@ -31,7 +31,7 @@
     <string name="desc_menu_4">desc4</string>
     <string name="learn_now">learn now</string>
     <string name="title_welcome_page">Selamat Datang !!!</string>
-    <string name="message_welcome_page">Mulai Manajemen Katalog Digital Anda</string>
+    <string name="message_welcome_page">Mulai Kelola Katalog Digital Anda</string>
     <string name="otp_verification">Masukan Kode OTP</string>
     <string name="verifikasi">Verifikasi</string>
     <string name="resend_otp">Kirim Ulang</string>

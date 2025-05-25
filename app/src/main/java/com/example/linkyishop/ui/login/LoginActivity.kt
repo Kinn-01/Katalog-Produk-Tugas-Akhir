@@ -2,6 +2,7 @@ package com.example.linkyishop.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -13,6 +14,7 @@ import com.example.linkyishop.ui.main.MainActivity
 import com.example.linkyishop.R
 import com.example.linkyishop.data.ViewModelFactory
 import com.example.linkyishop.databinding.ActivityLoginBinding
+import com.example.linkyishop.ui.aktivasiToko.AktivasiTokoActivity
 import com.example.linkyishop.ui.lupaPassword.LupaPasswordActivity
 import com.example.linkyishop.ui.register.RegisterActivity
 
@@ -22,6 +24,11 @@ class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
         ViewModelFactory.getInstance(this)
     }
+
+    private fun isEmailValid(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -34,7 +41,6 @@ class LoginActivity : AppCompatActivity() {
             // Tambahkan kode navigasi ke halaman lupa password di sini
             navigateToForgotPassword()
         }
-
 
         binding.signUpTextView.setOnClickListener {
             navigateToRegister()
@@ -58,18 +64,43 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        viewModel.loginResult.observe(this) {
-            viewModel.saveUserToken(it.token)
-            navigateToMainScreen()
+        viewModel.loginResult.observe(this) { result ->
+            result.onSuccess { dataLogin ->
+                false.showLoading()
+                viewModel.saveUserToken(dataLogin.token)
+                if (dataLogin.isActive) {
+                    navigateToMainScreen()
+                } else {
+                    navigateToAktivasiTokoScreen()
+                }
+            }.onFailure { throwable ->
+                false.showLoading()
+                val message = throwable.localizedMessage ?: "Login gagal. Silakan coba lagi."
+                showError(message)
+            }
         }
+
     }
 
-    private fun validateInput(email: String, password: String): Boolean {
+    private fun validateInput( email: String, password: String): Boolean {
+        var isValid = true
+
         if (email.isEmpty() || password.isEmpty()) {
-            "Email and password are required".showError()
-            return false
+            showError(getString(R.string.validasiRegister))
+            isValid = false
         }
-        return true
+
+        if (!isEmailValid(email)) {
+            binding.emaileditText.error = "Format email tidak valid"
+            isValid = false
+        }
+
+        if (password.length < 6) {
+            binding.passwordEditText.error = "Password minimal 6 karakter"
+            isValid = false
+        }
+
+        return isValid
     }
 
     private fun navigateToMainScreen() {
@@ -78,6 +109,14 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    private fun navigateToAktivasiTokoScreen() {
+        val intent = Intent(this, AktivasiTokoActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        finish()
+    }
+
 
     private fun navigateToForgotPassword() {
         val intent = Intent(this, LupaPasswordActivity::class.java)
@@ -89,8 +128,8 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun String?.showError() {
-        Toast.makeText(this@LoginActivity, this, Toast.LENGTH_SHORT).show()
+    private fun showError(message: String?) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun Boolean.showLoading() {

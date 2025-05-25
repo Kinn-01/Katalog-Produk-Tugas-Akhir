@@ -20,7 +20,6 @@ import com.example.linkyishop.databinding.FragmentProfileBinding
 import com.example.linkyishop.ui.aktivasiToko.AktivasiTokoViewModel
 import com.example.linkyishop.ui.aktivasiToko.UpdateStoreActivity
 import com.example.linkyishop.ui.listKategori.ListKategoriActivity
-import com.example.linkyishop.ui.tema.TemaActivity
 import com.example.linkyishop.ui.updatePassword.UpdatePasswordActivity
 import com.example.linkyishop.ui.welcome.WelcomeActivity
 
@@ -94,7 +93,7 @@ class ProfileFragment : Fragment() {
                     val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                     val clip = ClipData.newPlainText("Copied Link", fullLink)
                     clipboard.setPrimaryClip(clip)
-                    Toast.makeText(requireContext(), "Link disalin ke clipboard", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Tautan disalin ke clipboard", Toast.LENGTH_SHORT).show()
                 }
             }
         }

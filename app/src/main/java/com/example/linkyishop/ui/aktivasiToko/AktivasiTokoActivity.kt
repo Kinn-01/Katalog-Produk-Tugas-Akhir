@@ -69,7 +69,7 @@ class AktivasiTokoActivity : AppCompatActivity() {
 
                 viewModel.activateStore(name, username, description, logoPart)
             } else {
-                Toast.makeText(this, "Harap isi semua bidang", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Harap isi semua kolom", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Warna utama aplikasi -->
+    <color name="colorPrimary">#6200EE</color>
+
+    <!-- Warna merah untuk error -->
+    <color name="design_default_color_error">#B00020</color>
     <color name="md_theme_primary">#15576B</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
     <color name="md_theme_primaryContainer">#427C92</color>

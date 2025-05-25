@@ -2,6 +2,7 @@ package com.example.linkyishop.ui.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -9,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.addTextChangedListener
 import com.example.linkyishop.R
 import com.example.linkyishop.data.ViewModelFactory
 import com.example.linkyishop.databinding.ActivityRegisterBinding
@@ -22,6 +24,10 @@ class RegisterActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<RegisterViewModel> {
         ViewModelFactory.getInstance(this)
+    }
+
+    private fun isEmailValid(email: String): Boolean {
+        return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +44,15 @@ class RegisterActivity : AppCompatActivity() {
 
         setupRegister()
 
+        // Tambahan: hilangkan error saat user mengetik ulang
+        binding.emaileditText.addTextChangedListener {
+            binding.emaileditText.error = null
+        }
+
+        binding.passwordEditText.addTextChangedListener {
+            binding.passwordEditText.error = null
+        }
+
         binding.signUpTextView.setOnClickListener {
             navigateToLogin()
         }
@@ -50,9 +65,11 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.passwordEditText.text.toString().trim()
 
             if (validateInput(name, email, password)) {
+                true.showLoading()
                 viewModel.checkEmail(email)
                 viewModel.register(name, email, password)
-                true.showLoading()
+            } else {
+                false.showLoading()
             }
         }
 
@@ -60,35 +77,37 @@ class RegisterActivity : AppCompatActivity() {
             result.onSuccess { response ->
                 when (response.data?.status) {
                     null -> {
-                        // User sudah melakukan verifikasi OTP dan aktivasi toko
-                        showError("Email sudah digunakan. Silakan masuk.")
+                        showError(response.message ?: "Email sudah digunakan. Silakan masuk.")
+                        binding.emaileditText.error = "Email sudah digunakan. Silakan masuk."
                     }
-                    false -> {
-                        // User sudah registrasi tapi belum verifikasi OTP dan aktivasi toko
-                        navigateToOtpScreen(email)
-                    }
-                    true -> {
-                        // User sudah verifikasi OTP tapi belum aktivasi toko
+                    false, true -> {
                         navigateToOtpScreen(email)
                     }
                 }
-            }.onFailure {
-                showError(it.message)
+            }.onFailure { throwable ->
+                val message = throwable.localizedMessage ?: "Terjadi kesalahan saat memeriksa email."
+                showError(message)
             }
         }
 
         viewModel.registerResult.observe(this) { result ->
             result.onSuccess { response ->
+                false.showLoading()
                 if (response.success == true) {
                     navigateToOtpScreen(email)
                 } else {
-                    showError(response.message ?: "Registration failed. Please try again.")
+                    val errorMessage = response.registerResult?.email ?: response.message ?: "Registrasi gagal. Silakan coba lagi."
+                    binding.emaileditText.error = response.registerResult?.email // Tampilkan di bawah input
+                    showError(errorMessage)
                 }
-            }.onFailure {
-                showError(it.message)
+            }.onFailure { throwable ->
+                false.showLoading()
+                val message = throwable.localizedMessage ?: "Terjadi kesalahan. Silakan coba lagi."
+                showError(message)
             }
         }
     }
+
     private fun navigateToOtpScreen(email: String) {
         val intent = Intent(this@RegisterActivity, OtpVerifActivity::class.java)
         intent.putExtra(OtpVerifActivity.EXTRA_EMAIL, email)
@@ -101,15 +120,27 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun validateInput(name: String, email: String, password: String): Boolean {
+        var isValid = true
+
         if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
             showError(getString(R.string.validasiRegister))
-            return false
+            isValid = false
         }
-        return true
+
+        if (!isEmailValid(email)) {
+            binding.emaileditText.error = "Format email tidak valid"
+            isValid = false
+        }
+
+        if (password.length < 6) {
+            binding.passwordEditText.error = "Password minimal 6 karakter"
+            isValid = false
+        }
+
+        return isValid
     }
 
     private fun showError(message: String?) {
-        // Implementasi menampilkan pesan error
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 

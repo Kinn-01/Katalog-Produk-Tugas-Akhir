@@ -20,8 +20,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LoginViewModel(private val repository: UserRepository) : ViewModel() {
-    private val _loginResult = MutableLiveData<DataLogin>()
-    val loginResult: LiveData<DataLogin> = _loginResult
+    private val _loginResult = MutableLiveData<Result<DataLogin>>()
+    val loginResult: LiveData<Result<DataLogin>> = _loginResult
 
     fun login(email: String, password: String) {
         val client = ApiConfig.getApiService().login(email, password)
@@ -31,26 +31,26 @@ class LoginViewModel(private val repository: UserRepository) : ViewModel() {
                 response: Response<LoginResponse>
             ) {
                 if (response.isSuccessful) {
-                    _loginResult.value = response.body()?.data
+                    val data = response.body()?.data
+                    if (data != null) {
+                        _loginResult.value = Result.success(data)
+                    } else {
+                        _loginResult.value = Result.failure(Exception("Data login kosong"))
+                    }
                 } else {
-//                    _message.value = Event("Tidak Ditemukan")
-                    Log.e("Loginewe", "onFailure: ${response.message()}")
+                    _loginResult.value = Result.failure(Exception("Login gagal: ${response.message()}"))
                 }
             }
+
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-//                _isLoading.value = false
-                Log.e("Loginewe", "onFailure: ${t.message.toString()}")
+                _loginResult.value = Result.failure(t)
             }
         })
     }
+
     fun saveUserToken(token: String) {
         viewModelScope.launch {
             repository.saveUserToken(token)
-        }
-    }
-    fun getUserToken() {
-        viewModelScope.launch {
-            repository.getUserToken()
         }
     }
 }
