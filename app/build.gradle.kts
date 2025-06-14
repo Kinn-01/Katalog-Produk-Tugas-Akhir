@@ -6,18 +6,18 @@ plugins {
 }
 
 android {
-    namespace = "com.example.linkyishop"
+    namespace = "com.dapoer.rangoe"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.linkyishop"
+        applicationId = "com.dapoer.rangoe"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String","BASE_URL","\"https://api.linkyi.shop/api/\"")
+        buildConfigField("String","BASE_URL","\"https://api.linkyi.site/api/\"")
     }
 
     buildTypes {
