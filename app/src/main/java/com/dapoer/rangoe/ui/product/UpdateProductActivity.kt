@@ -56,13 +56,15 @@ class UpdateProductActivity : AppCompatActivity() {
         observeViewModel()
         addViewModel.predictionResult.observe(this@UpdateProductActivity){
             if (it.decision == "accept"){
-                showImage()
-            }else{
+                // Sudah ditampilkan lebih dulu di onActivityResult
+            } else {
+                // Reset thumbnail
                 binding.editImage.setImageDrawable(ContextCompat.getDrawable(this@UpdateProductActivity, R.drawable.baseline_preview_image_24))
                 currentImageUri = null
+                selectedThumbnail = null
                 Snackbar.make(
                     binding.main, "Gambar mengandung elemen yang terlarang",
-                    Snackbar.LENGTH_LONG).setAction("Action", null
+                    Snackbar.LENGTH_LONG
                 ).show()
             }
         }
@@ -106,7 +108,15 @@ class UpdateProductActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
             val resultUri = data?.let { UCrop.getOutput(it) }
-            if (resultUri != null){
+            if (resultUri != null) {
+                // Langsung tampilkan thumbnail terlebih dahulu
+                currentImageUri = resultUri
+                binding.editImage.setImageURI(resultUri)
+
+                // Simpan file ke MultipartBody untuk update
+                selectedThumbnail = uriToMultipartBody(resultUri)
+
+                // Lanjutkan ke proses prediksi
                 val imageFile = uriToFile(resultUri, this).reduceFileImage()
                 val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
                 val multipartBody = MultipartBody.Part.createFormData(

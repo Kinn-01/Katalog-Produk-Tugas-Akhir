@@ -104,10 +104,13 @@ class UpdateStoreActivity : AppCompatActivity() {
     private fun showImage() {
         currentImageUri?.let {
             Log.d("Image URI", "showImage: $it")
-            binding.editImage.setImageURI(it)
+            binding.editImage.setImageURI(it) // <-- Thumbnail preview langsung muncul
             selectedLogo = uriToMultipartBody(it)
+        } ?: run {
+            Log.e("Image URI", "currentImageUri is null")
         }
     }
+
 
     private fun uriToMultipartBody(uri: Uri): MultipartBody.Part? {
         val file = uriToFile(uri, this).reduceFileImage()

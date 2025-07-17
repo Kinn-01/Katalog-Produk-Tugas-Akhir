@@ -183,20 +183,24 @@ class AddProductActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
             val resultUri = data?.let { UCrop.getOutput(it) }
-                if (resultUri != null){
-                    val imageFile = uriToFile(resultUri, this).reduceFileImage()
-                    val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
-                    val multipartBody = MultipartBody.Part.createFormData(
-                        "file",
-                        imageFile.name,
-                        requestImageFile
-                    )
-                    viewModel.predictImage(multipartBody)
-                    currentImageUri = resultUri
-                }else{
-                    binding.productImage.setImageDrawable(ContextCompat.getDrawable(this@AddProductActivity, R.drawable.baseline_preview_image_24))
-                    currentImageUri = null
-                }
+            if (resultUri != null){
+                // Tampilkan gambar langsung ke ImageView sebagai thumbnail
+                binding.productImage.setImageURI(resultUri)
+                currentImageUri = resultUri
+
+                // Lanjutkan ke proses prediksi
+                val imageFile = uriToFile(resultUri, this).reduceFileImage()
+                val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+                val multipartBody = MultipartBody.Part.createFormData(
+                    "file",
+                    imageFile.name,
+                    requestImageFile
+                )
+                viewModel.predictImage(multipartBody)
+            } else {
+                binding.productImage.setImageDrawable(ContextCompat.getDrawable(this@AddProductActivity, R.drawable.baseline_preview_image_24))
+                currentImageUri = null
+            }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             val cropError = UCrop.getError(data!!)
             cropError?.let {
